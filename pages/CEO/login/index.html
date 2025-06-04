@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>CronoSys</title>
+    <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+    <div class="login-container">
+        <h2>CronoSys</h2>
+        <form id="loginForm">
+            <label for="username">Usuário</label>
+            <input type="text" id="username" name="username" placeholder="Digite seu usuário" required />
+
+            <label for="password">Senha</label>
+            <input type="password" id="password" name="password" placeholder="Digite sua senha" required />
+
+            <button type="submit">Entrar</button>
+            <button id="supportButton" type="button">Suporte</button>
+        </form>
+    </div>
+
+    <script>
+        // Botão Suporte
+        document.getElementById('supportButton').addEventListener('click', function () {
+            window.location.href = '../suporte/suporte.html';
+        });
+
+        // Envia dados para Node.js puro
+        document.getElementById('loginForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            try {
+                const response = await fetch('http://localhost:3000/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ username, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    window.location.href = '../menuPrincipal/menu_principal.html';
+                } else {
+                    alert(data.message || 'Erro ao fazer login');
+                }
+            } catch (error) {
+                alert('Erro ao conectar com o servidor');
+                console.error(error);
+            }
+        });
+    </script>
+</body>
+
+</html>

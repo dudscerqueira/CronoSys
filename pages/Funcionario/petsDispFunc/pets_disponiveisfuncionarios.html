@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pets Disponíveis para Adoção</title>
+  <link rel="stylesheet" href="pets_disponiveisfuncionarios.css" />
+</head>
+
+<body>
+  <header>
+    <div style="background-color:#2c3e50; color:#ecf0f1; padding: 20px; text-align: center; font-size: 1.8rem; font-weight: 700; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+      CronoSys
+    </div>
+    <nav style="background-color:#34495e; padding: 10px; display: flex; justify-content: center; gap: 15px;">
+    </nav>
+  </header>
+  <main>
+    <h2>Pets Disponíveis para Adoção</h2>
+    <table>
+      <thead>
+        <tr>
+          <th> </th>
+          <th>Nome</th>
+          <th>Raça</th>
+          <th>Idade</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="petsTableBody">
+        <!-- Pets will be dynamically inserted here -->
+      </tbody>
+    </table>
+
+    <div class="button-container">
+      <button class="back-btn" onclick="window.location.href='menufuncionarios.html'">Voltar</button>
+      <button class="back-btn" onclick="window.location.href='cadastrar_petfuncionarios.html'">Cadastrar Pet</button>
+    </div>
+  </main>
+
+  <script src="pets_disponiveisfuncionarios.js"></script>
+</body>
+
+</html>

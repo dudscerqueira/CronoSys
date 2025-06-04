@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cadastro de Pet para Adoção</title>
+  <link rel="stylesheet" href="cadastrar_petfuncionarios.css" />
+</head>
+
+<body>
+  <header>
+    <div style="background-color:#2c3e50; color:#ecf0f1; padding: 20px; text-align: center; font-size: 1.8rem; font-weight: 700; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+      CronoSys
+    </div>
+    <nav style="background-color:#34495e; padding: 10px; display: flex; justify-content: center; gap: 15px;">
+     
+    </nav>
+  </header>
+  <main>
+    <h2>Cadastro de Pet para Adoção</h2>
+    <form id="petForm">
+      <div class="form-left">
+        <label for="nomePet">Nome do Pet</label>
+        <input type="text" id="nomePet" name="nomePet" required />
+
+        <label for="racaPet">Raça</label>
+        <input type="text" id="racaPet" name="racaPet" required />
+
+        <label for="idadePet">Idade</label>
+        <input type="text" id="idadePet" name="idadePet" required />
+
+        <label for="descricaoPet">Descrição</label>
+        <textarea id="descricaoPet" name="descricaoPet" required></textarea>
+
+        <button type="submit" class="submit-btn">Cadastrar pet</button>
+      </div>
+      <div class="form-right" tabindex="0">
+        <label for="imagemPet">Clique para anexar imagem</label>
+        <input type="file" id="imagemPet" name="imagemPet" accept="image/*" required />
+        <img id="previewImagemPet" src="" alt="Pré-visualização da imagem" />
+      </div>
+    </form>
+
+    <!-- Removed pets available section as per user request -->
+
+    <div class="button-container">
+      <button class="back-btn" onclick="window.location.href='pets_disponiveisfuncionarios.html'">Ver Pets Disponíveis</button>
+    </div>
+    <div class="button-container" style="margin-top: 10px; text-align: right;">
+      <button class="back-btn" onclick="window.location.href='menufuncionarios.html'">Voltar</button>
+    </div>
+  </main>
+
+  <script src="cadastrar_petfuncionarios.js"></script>
+</body>
+
+</html>

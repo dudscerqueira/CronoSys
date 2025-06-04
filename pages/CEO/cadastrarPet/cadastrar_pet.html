@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cadastro de Pet para Adoção</title>
+  <link rel="stylesheet" href="cadastrar_pet.css" />
+</head>
+
+<body>
+  <header>
+    <div class="header-title">CronoSys</div>
+    <nav class="header-nav">
+      <!-- Navegação futura -->
+    </nav>
+  </header>
+  <main>
+    <h2>Cadastro de Pet para Adoção</h2>
+    <form id="petForm">
+      <div class="form-left">
+        <label for="nomePet">Nome do Pet</label>
+        <input type="text" id="nomePet" name="nomePet" required />
+
+        <label for="racaPet">Raça</label>
+        <input type="text" id="racaPet" name="racaPet" required />
+
+        <label for="idadePet">Idade</label>
+        <input type="text" id="idadePet" name="idadePet" required />
+
+        <label for="descricaoPet">Descrição</label>
+        <textarea id="descricaoPet" name="descricaoPet" required></textarea>
+
+        <button type="submit" class="submit-btn">Cadastrar pet</button>
+      </div>
+    </form>
+
+    <div class="button-container">
+      <button class="back-btn" onclick="window.location.href='../petsDisponiveis/pets_disponiveis.html'">Ver Pets Disponíveis</button>
+    </div>
+    <div class="button-container" style="margin-top: 10px; text-align: right;">
+      <button class="back-btn" onclick="window.location.href='../menuPrincipal/menu_principal.html'">Voltar</button>
+    </div>
+  </main>
+
+  <script src="cadastrar_pet.js"></script>
+</body>
+
+</html>

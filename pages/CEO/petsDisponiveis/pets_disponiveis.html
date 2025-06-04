@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pets Disponíveis para Adoção</title>
+  <link rel="stylesheet" href="pets_disponiveis.css" />
+</head>
+
+<body>
+  <header>
+    <div class="header-title">CronoSys</div>
+    <nav class="header-nav"></nav>
+  </header>
+  <main>
+    <h2>Pets Disponíveis para Adoção</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Raça</th>
+          <th>Idade</th>
+          <th>Status</th>
+          <th>Descrição</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="petsTableBody">
+        <!-- Pets will be dynamically inserted here -->
+      </tbody>
+    </table>
+
+    <div class="button-container">
+      <button class="back-btn" onclick="window.location.href='../menuPrincipal/menu_principal.html'">Voltar</button>
+      <button class="back-btn" onclick="window.location.href='../cadastrarPet/cadastrar_pet.html'">Cadastrar Pet</button>
+    </div>
+  </main>
+
+  <script src="pets_disponiveis.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Menu Funcionario</title>
+    <link rel="stylesheet" href="menufuncionarios.css" />
+</head>
+
+<body>
+    <header>
+        <h1>CronoSys </h1>
+       
+
+
+    </header>
+<div class="welcome-text">Menu</div>
+    <nav>
+        <ul class="menu">
+            <li class="menu-item" onclick="window.location.href='localizar_produtosfuncionarios.html'">Localizar Produtos</li>
+            <li class="menu-item" onclick="window.location.href='agendar_servicosfuncionarios.html'">Agendar Serviços</li>
+            <li class="menu-item" onclick="window.location.href='visualizar_servicosfuncionarios.html'">Servicos Agendados</li>
+            <li class="menu-item" onclick="window.location.href='cadastrar_vendasfuncionarios.html'">Cadastrar Vendas</li>
+            <li class="menu-item" onclick="window.location.href='cadastrar_petfuncionarios.html'">Cadastrar Pet</li>
+            <li class="menu-item" onclick="window.location.href='pets_disponiveisfuncionarios.html'">Pets disponiveis para adoção
+            </li>
+        </ul>
+<button id="loginButton" onclick="window.location.href='../index.html'">Login</button>
+    </nav>
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const menu = document.querySelector('nav ul.menu');
+        const loginButton = document.getElementById('loginButton');
+
+        function toggleMenu() {
+            menu.classList.toggle('show');
+            loginButton.classList.toggle('show');
+        }
+
+        hamburger.addEventListener('click', toggleMenu);
+        hamburger.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter' || e.key === ' ') {
+                toggleMenu();
+            }
+        });
+    </script>
+</body>
+
+</html>
