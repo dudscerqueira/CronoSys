@@ -8,6 +8,7 @@ function displayProducts(products) {
     return;
   }
 
+  // Se veio só um produto, transforma em array para padronizar o loop
   if (!Array.isArray(products)) {
     products = [products];
   }
@@ -38,14 +39,24 @@ searchForm.addEventListener('submit', async function(event) {
   }
 
   try {
-    // Ajuste o endpoint para buscar pelo código, ou pelo id, conforme seu backend
     const response = await fetch(`/api/produtos/codigo/${encodeURIComponent(codigo)}`);
-    if (!response.ok) {
+
+    if (response.status === 404) {
       productList.innerHTML = '<p>Produto não encontrado.</p>';
       return;
     }
+
+    if (!response.ok) {
+      productList.innerHTML = `<p>Erro ao buscar produto: ${response.statusText}</p>`;
+      return;
+    }
+
     const produto = await response.json();
+
+    // Aqui, se quiser forçar atualização do estoque, certifique-se que o backend já atualizou,
+    // e só depois dessa busca a tela reflete o estoque atualizado.
     displayProducts(produto);
+
   } catch (error) {
     productList.innerHTML = '<p>Erro ao buscar produto. Tente novamente.</p>';
     console.error('Erro na busca do produto:', error);

@@ -1,40 +1,101 @@
-// Load sales data from localStorage and display in table
-function loadSales() {
-    const sales = JSON.parse(localStorage.getItem('sales')) || [];
-    const tbody = document.getElementById('salesTableBody');
-    tbody.innerHTML = '';
-    sales.forEach(sale => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>${sale.saleDate}</td>
-            <td>${sale.product}</td>
-            <td>${sale.quantity}</td>
-            <td>${sale.total}</td>
-        `;
-        tbody.appendChild(tr);
-    });
+// Formatação moeda BR
+function formatCurrency(value) {
+  return value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
 }
 
-// Filter sales by product name
-function filterSales() {
-    const searchTerm = document.getElementById('productSearch').value.toLowerCase();
-    const sales = JSON.parse(localStorage.getItem('sales')) || [];
-    const tbody = document.getElementById('salesTableBody');
-    tbody.innerHTML = '';
-    sales.filter(sale => sale.product.toLowerCase().includes(searchTerm))
-        .forEach(sale => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${sale.saleDate}</td>
-                <td>${sale.product}</td>
-                <td>${sale.quantity}</td>
-                <td>${sale.total}</td>
-            `;
-            tbody.appendChild(tr);
-        });
+const productCache = {};
+async function getProductByCode(code) {
+  if (productCache[code]) return productCache[code];
+  try {
+    const res = await fetch(`/api/produtos/codigo/${encodeURIComponent(code)}`);
+    if (!res.ok) return null;
+    const product = await res.json();
+    productCache[code] = product;
+    return product;
+  } catch {
+    return null;
+  }
+}
+
+async function deleteSale(id) {
+  if (!confirm('Tem certeza que deseja excluir esta venda?')) return;
+  try {
+    const response = await fetch(`/api/vendas/${id}`, { method: 'DELETE' });
+    if (!response.ok) {
+      alert('Erro ao excluir a venda.');
+      return;
+    }
+    alert('Venda excluída com sucesso.');
+    await loadSales();
+  } catch (error) {
+    console.error('Erro ao excluir venda:', error);
+    alert('Erro ao excluir a venda.');
+  }
+}
+
+async function loadSales() {
+  const response = await fetch('/api/vendas');
+  if (!response.ok) {
+    alert('Erro ao carregar vendas');
+    return;
+  }
+  const sales = await response.json();
+  const tbody = document.getElementById('salesTableBody');
+  tbody.innerHTML = '';
+
+  for (const sale of sales) {
+    const product = await getProductByCode(sale.produto);
+    const productName = product ? product.nome : '(Produto não encontrado)';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${sale.data}</td>
+      <td>${sale.produto}</td>
+      <td>${productName}</td>
+      <td>${sale.quantidade}</td>
+      <td>${formatCurrency(Number(sale.total))}</td>
+      <td><button onclick="deleteSale('${sale.id}')">Excluir</button></td>
+    `;
+    tbody.appendChild(tr);
+  }
+}
+
+async function filterSales() {
+  const searchTerm = document.getElementById('productSearch').value.trim().toLowerCase();
+  const dateFilter = document.getElementById('dateFilter').value;
+  const response = await fetch('/api/vendas');
+  if (!response.ok) {
+    alert('Erro ao carregar vendas');
+    return;
+  }
+  const sales = await response.json();
+  const tbody = document.getElementById('salesTableBody');
+  tbody.innerHTML = '';
+
+  for (const sale of sales) {
+    if (dateFilter && sale.data !== dateFilter) continue;
+
+    const product = await getProductByCode(sale.produto);
+    const productName = product ? product.nome : '';
+
+    if (
+      sale.produto.toString().toLowerCase().includes(searchTerm) ||
+      productName.toLowerCase().includes(searchTerm)
+    ) {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${sale.data}</td>
+        <td>${sale.produto}</td>
+        <td>${productName}</td>
+        <td>${sale.quantidade}</td>
+        <td>${formatCurrency(Number(sale.total))}</td>
+        <td><button onclick="deleteSale('${sale.id}')">Excluir</button></td>
+      `;
+      tbody.appendChild(tr);
+    }
+  }
 }
 
 document.getElementById('searchButton').addEventListener('click', filterSales);
+document.getElementById('filterDateButton').addEventListener('click', filterSales);
 
-// Load sales on page load
 window.onload = loadSales;
